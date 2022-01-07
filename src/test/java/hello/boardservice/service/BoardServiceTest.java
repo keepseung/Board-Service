@@ -14,6 +14,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,8 +50,12 @@ public class BoardServiceTest {
         // 테스트 시작 전에 공지사항과 첨부파일 저장하기
         BoardSaveRequestDto board1 = createBoardSaveDto("미리 저장한 공지 제목1", "미리 저장할 공지 내용1", "미리 저장할 공지 작가1", LocalDateTime.now(), LocalDateTime.now());
         BoardSaveRequestDto board2 = createBoardSaveDto("미리 저장한 공지 제목2", "미리 저장할 공지 내용2", "미리 저장할 공지 작가2", LocalDateTime.now(), LocalDateTime.now());
+        BoardSaveRequestDto board3 = createBoardSaveDto("미리 저장한 공지 제목3", "미리 저장할 공지 내용3", "미리 저장할 공지 작가3", LocalDateTime.now(), LocalDateTime.now());
+        BoardSaveRequestDto board4 = createBoardSaveDto("미리 저장한 공지 제목4", "미리 저장할 공지 내용4", "미리 저장할 공지 작가4", LocalDateTime.now(), LocalDateTime.now());
         Board savedBoard1 = boardRepository.save(board1.toEntity());
         Board savedBoard2 = boardRepository.save(board2.toEntity());
+        boardRepository.save(board3.toEntity());
+        boardRepository.save(board4.toEntity());
 
         UploadFile uploadFile1 = createUploadFile("pretest1.jpg", "3412-3123-adwd-1f2f.jpg", savedBoard1);
         UploadFile uploadFile2 = createUploadFile("pretest2.jpg", "2412-3123-adwd-1f2f.jpg", savedBoard1);
@@ -108,22 +115,25 @@ public class BoardServiceTest {
     @Test
     @DisplayName("공지사항 삭제 테스트")
     void deleteBoard() {
+        Board board = boardRepository.findAll().get(0);
         // when
-        boardService.deleteById(1L);
+        boardService.deleteById(board.getId());
 
         // then
-        assertThrows(NoSuchElementException.class, () ->  boardRepository.findById(1L).get());
+        assertThrows(NoSuchElementException.class, () ->  boardRepository.findById(board.getId()).get());
     }
 
     @Test
-    @DisplayName("공지사항 전체 조회 테스트")
+    @DisplayName("공지사항 리스트 페이징 조회 테스트")
     void findAllBoard() {
+        int pageSize = 2;
+        PageRequest pageRequest = PageRequest.of(0, pageSize, Sort.by(Sort.Direction.DESC, "id"));
+
         // when
-        List<Board> boards = boardRepository.findAll();
-        List<BoardResponseDto> findList = boardService.findList();
+        List<BoardResponseDto> findList = boardService.findList(pageRequest);
 
         // then
-        assertThat(findList.size()).isEqualTo(boards.size());
+        assertThat(findList.size()).isEqualTo(pageSize);
     }
 
     @Test

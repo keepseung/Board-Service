@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -51,7 +52,7 @@ public class BoardApiController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return ApiResponse.setResponse(HttpStatus.OK.value());
+        return ApiResponse.setResponse(HttpStatus.CREATED.value());
     }
 
     // 공지사항 수정
@@ -70,8 +71,8 @@ public class BoardApiController {
 
     // 공지사항 리스트 조회
     @GetMapping("/api/v1/board")
-    public ApiResponse<List<BoardResponseDto>> findList() {
-        List<BoardResponseDto> boardDetailResponseDtoList = boardService.findList();
+    public ApiResponse<List<BoardResponseDto>> findList(Pageable pageable) {
+        List<BoardResponseDto> boardDetailResponseDtoList = boardService.findList(pageable);
         return ApiResponse.setResponse(HttpStatus.OK.value(), boardDetailResponseDtoList);
     }
 

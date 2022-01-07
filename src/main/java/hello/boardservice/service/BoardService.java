@@ -8,6 +8,8 @@ import hello.boardservice.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,12 +60,13 @@ public class BoardService {
     }
 
 
-    public List<BoardResponseDto> findList() {
-        return boardRepository.findAll()
+    public List<BoardResponseDto> findList(Pageable pageable) {
+        return boardRepository.findAll(pageable)
                 .stream()
                 .map(BoardResponseDto::new)
                 .collect(Collectors.toList());
     }
+
 
     @Transactional
     public void deleteById(Long id) {
