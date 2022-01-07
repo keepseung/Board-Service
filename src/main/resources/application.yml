@@ -17,7 +17,7 @@ spring:
       max-request-size: 20MB
 
 file:
-  dir: '파일 업로드할 디렉토리 절대경로'
+  dir: /Users/seunghyeon/study/spring/boardservice/upload-file/
   requestUrl: "http://localhost:8080/upload-file/"
 logging.level:
   org.hibernate.SQL: debug

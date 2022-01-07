@@ -13,12 +13,12 @@ import java.util.List;
 public class BoardDetailResponseDto extends BoardResponseDto {
     private String boardStartDate;
     private String boardEndDate;
-    private List<UploadFileDto> uploadFileDtoList = new ArrayList<>();
+    private List<UploadFileDto> uploadFiles = new ArrayList<>();
 
     public BoardDetailResponseDto(Board board, List<UploadFileDto> uploadFileDtos) {
         super(board);
         this.boardStartDate = getDateTimeString(board.getBoardStartDate());
         this.boardEndDate = getDateTimeString(board.getBoardEndDate());
-        this.uploadFileDtoList = uploadFileDtos;
+        this.uploadFiles = uploadFileDtos;
     }
 }

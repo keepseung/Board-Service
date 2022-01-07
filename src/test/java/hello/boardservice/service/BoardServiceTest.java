@@ -14,7 +14,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
@@ -157,8 +156,8 @@ public class BoardServiceTest {
         assertThat(findDetailDto.getTitle()).isEqualTo(savedBoard1.getTitle());
         assertThat(findDetailDto.getContent()).isEqualTo(savedBoard1.getContent());
         assertThat(findDetailDto.getViewCount()).isEqualTo(1);
-        assertThat(findDetailDto.getUploadFileDtoList().size()).isEqualTo(1);
-        assertThat(findDetailDto.getUploadFileDtoList().get(0).getId()).isEqualTo(uploadFile1.getId());
+        assertThat(findDetailDto.getUploadFiles().size()).isEqualTo(1);
+        assertThat(findDetailDto.getUploadFiles().get(0).getId()).isEqualTo(uploadFile1.getId());
     }
 
     private BoardSaveRequestDto createBoardSaveDto(String title, String content, String author, LocalDateTime startDate, LocalDateTime endDate) {

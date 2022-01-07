@@ -37,6 +37,7 @@ public class BoardApiController {
     private final FileService fileService;
 
     // 공지사항 등록
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(value = "/api/v1/board", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ApiResponse<?> save(@ModelAttribute BoardSaveRequestDto board) {
 
