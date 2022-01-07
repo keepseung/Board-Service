@@ -87,7 +87,7 @@ class BoardApiControllerTest {
                         .param("startDate", startDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                         .param("endDate", endDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")))
                 )
-                .andExpect(status().isOk());
+                .andExpect(status().isCreated());
 
         // 최근에 저장된 순서로 조회하기
         List<Board> boards = boardRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
