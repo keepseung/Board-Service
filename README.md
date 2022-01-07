@@ -28,9 +28,9 @@ org.projectlombok:lombok |
   * POST /api/v1/board
   * 등록 정보 : 제목, 내용, 공지 시작일시, 공지 종료일시, 여러 첨부파일
 * 공지사항 리스트 조회 with Paging
-  * GET /api/v1/board/{id}
-* 공지사항 조회 with ID
   * GET /api/v1/board[?page={}&size={}&sort={}]
+* 공지사항 조회 with ID
+  * GET /api/v1/board/{id}
 * 공지사항 수정
   * PUT /api/v1/board/{id}  
 * 공지사항 삭제    
