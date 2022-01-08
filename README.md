@@ -5,7 +5,7 @@
 - Java 11
 
 ### 실행하기
-* application.yml에 업로드할 파일을 저장할 절대 경로 지정하고 싫행하기
+* application.yml에 업로드할 파일을 저장할 절대 경로 지정하고 실행하기
 ``` yml
 file:
   dir: '파일 업로드할 디렉토리 절대경로'
